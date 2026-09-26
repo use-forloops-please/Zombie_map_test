@@ -7,8 +7,8 @@ A map is a folder in `public/maps/<map-id>/`:
 | `map.json`  | yes      | The map's definition: geometry (brushes), entities and lighting.                              |
 | `level.glb` | no       | Art exported from Blender. It can also supply collision, the navmesh and entity placeholders. |
 
-You can build a whole map in `map.json` with no 3D tool (the **greybox route**), build it
-in Blender (the **Blender route**), or mix the two. Either way the game validates the map on
+You can build a whole map in `map.json` with no 3D tool (the **greybox route**), most easily
+with the **in-browser editor**, build it in Blender (the **Blender route**), or mix the two. Either way the game validates the map on
 load and shows any problem on screen, naming the entity or Blender object at fault.
 
 Play a map with `?map=<map-id>`, for example `http://localhost:5173/?map=bunker-01-art`.
@@ -29,6 +29,32 @@ lighting preset.
 | Rotation Z = `r`°             | `yaw: r`                 |
 | An empty's green **+Y** arrow | The way it faces         |
 | Scale `(sx, sy, sz)` of a box | Half-size `[sx, sz, sy]` |
+
+## The in-browser editor
+
+Open `http://localhost:5173/?editor` for a new map, or `?editor=<map-id>` to open an existing one.
+The editor writes `map.json`; it doesn't touch `level.glb`.
+
+- **Add** items from the left panel. Each lands where the camera is looking. The list below
+  it shows everything in the map; click an entry to select it (handy for things inside walls).
+- **Select** by clicking in the 3D view. Orbit with the left mouse, pan with the right, zoom
+  with the wheel.
+- **Gizmo:** **W** moves, **E** turns (anything that faces a direction), **R** resizes
+  (brushes, zones and doors). **G** toggles snapping to 0.25 m and 15°. A window's zombie
+  spawn point is its own handle: click the sphere at the end of its line.
+- **Properties** on the right set everything else: ids, materials, zones, costs, weapons and
+  exact numbers. Renaming a zone updates every window, door and crate spot that uses it.
+- **Undo / redo** with Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z. **Ctrl/Cmd+D** duplicates, **Delete**
+  removes, **F** focuses the camera on the selection.
+- The bar along the bottom lists **problems** as you work; click one to select the item it's
+  about. **Check navmesh** runs the game's own window and navmesh checks, and **Show
+  navmesh** draws the result.
+- **Play test** opens the map in the game in a new tab, straight from the editor.
+- **Download map.json** saves the file; put it in `public/maps/<map-id>/`, where
+  `<map-id>` is the map's Id. **Copy JSON** puts it on the clipboard instead.
+
+The file comes out in the same layout as the hand-written maps. Opening a map and exporting it
+without changes gives back the same file byte for byte.
 
 ## The greybox route (`map.json`)
 

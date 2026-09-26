@@ -37,7 +37,13 @@ import { ViewPunch } from '../game/view/ViewPunch'
 import { WallBuyRenderer } from '../game/view/WallBuyRenderer'
 import { ZombieRenderer } from '../game/view/ZombieRenderer'
 import type { LightingPresetId } from '../maps/lighting'
-import { buildMap, fetchMap, type LoadedMap, type MapSource } from '../maps/MapLoader'
+import {
+  buildMap,
+  fetchMap,
+  mapSourceFromJson,
+  type LoadedMap,
+  type MapSource,
+} from '../maps/MapLoader'
 import { initNavigation } from '../maps/navmesh'
 import { uiStore } from '../ui/store'
 import { AudioEngine } from './Audio'
@@ -61,6 +67,8 @@ export interface GameOptions {
   showNavmesh?: boolean
   /** Replaces the map's lighting preset and fog (`?lighting=<preset>`), for comparing presets. */
   lighting?: LightingPresetId
+  /** Play this map.json data instead of fetching the map (the editor's play test). */
+  mapJson?: unknown
 }
 
 /** Owns the renderer, scene, loop and systems. */
@@ -391,7 +399,10 @@ export class Game {
   ): Promise<Game> {
     const [physics] = await Promise.all([Physics.create(), initNavigation()])
     try {
-      const source = await fetchMap(mapId)
+      const source =
+        options.mapJson === undefined
+          ? await fetchMap(mapId)
+          : await mapSourceFromJson(options.mapJson, mapId)
       return new Game(canvas, physics, source, options)
     } catch (err) {
       physics.dispose()

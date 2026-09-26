@@ -42,8 +42,7 @@ const ART_FILE = /^[\w-]+\.glb$/
  * with a readable message for anything wrong.
  */
 export async function fetchMap(mapId: string): Promise<MapSource> {
-  const folder = `${import.meta.env.BASE_URL}maps/${encodeURIComponent(mapId)}/`
-  const url = `${folder}map.json`
+  const url = `${import.meta.env.BASE_URL}maps/${encodeURIComponent(mapId)}/map.json`
   let res: Response
   try {
     res = await fetch(url)
@@ -60,7 +59,16 @@ export async function fetchMap(mapId: string): Promise<MapSource> {
   } catch (err) {
     throw new MapLoadError(`Map "${mapId}" is not valid JSON: ${String(err)}`)
   }
+  return mapSourceFromJson(json, mapId)
+}
 
+/**
+ * Turns map.json data already in hand (fetched, or handed over by the editor's play test)
+ * into a MapSource: loads its art from `maps/<mapId>/` if it names any, merges the art's
+ * placeholders, and validates. Throws MapLoadError with a readable message.
+ */
+export async function mapSourceFromJson(json: unknown, mapId: string): Promise<MapSource> {
+  const folder = `${import.meta.env.BASE_URL}maps/${encodeURIComponent(mapId)}/`
   let art: ArtScene | null = null
   const artFile = isRecord(json) && typeof json.art === 'string' ? json.art : null
   // A malformed file name is left for validation to report.

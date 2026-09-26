@@ -10,102 +10,22 @@
       "material": "dirt",
       "walkable": true
     },
-    {
-      "type": "box",
-      "pos": [-2.95, 1.5, -6.15],
-      "size": [6.7, 3, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [3.95, 1.5, -6.15],
-      "size": [4.7, 3, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [1, 0.45, -6.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [1, 2.55, -6.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-4.45, 1.5, 6.15],
-      "size": [3.7, 3, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [2.45, 1.5, 6.15],
-      "size": [7.7, 3, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-2, 0.45, 6.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-2, 2.55, 6.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-6.15, 1.5, -3.3],
-      "size": [0.3, 3, 5.4],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-6.15, 1.5, 3.3],
-      "size": [0.3, 3, 5.4],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-6.15, 0.45, 0],
-      "size": [0.3, 0.9, 1.2],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-6.15, 2.55, 0],
-      "size": [0.3, 0.9, 1.2],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [6.15, 1.5, -3.5],
-      "size": [0.3, 3, 5],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [6.15, 1.5, 3.5],
-      "size": [0.3, 3, 5],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [6.15, 2.75, 0],
-      "size": [0.3, 0.5, 2],
-      "material": "concrete"
-    },
-    {
-      "type": "box",
-      "pos": [-2.5, 1.5, -2.5],
-      "size": [0.8, 3, 0.8],
-      "material": "concrete"
-    },
+    { "type": "box", "pos": [-2.95, 1.5, -6.15], "size": [6.7, 3, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [3.95, 1.5, -6.15], "size": [4.7, 3, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [1, 0.45, -6.15], "size": [1.2, 0.9, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [1, 2.55, -6.15], "size": [1.2, 0.9, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [-4.45, 1.5, 6.15], "size": [3.7, 3, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [2.45, 1.5, 6.15], "size": [7.7, 3, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [-2, 0.45, 6.15], "size": [1.2, 0.9, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [-2, 2.55, 6.15], "size": [1.2, 0.9, 0.3], "material": "concrete" },
+    { "type": "box", "pos": [-6.15, 1.5, -3.3], "size": [0.3, 3, 5.4], "material": "concrete" },
+    { "type": "box", "pos": [-6.15, 1.5, 3.3], "size": [0.3, 3, 5.4], "material": "concrete" },
+    { "type": "box", "pos": [-6.15, 0.45, 0], "size": [0.3, 0.9, 1.2], "material": "concrete" },
+    { "type": "box", "pos": [-6.15, 2.55, 0], "size": [0.3, 0.9, 1.2], "material": "concrete" },
+    { "type": "box", "pos": [6.15, 1.5, -3.5], "size": [0.3, 3, 5], "material": "concrete" },
+    { "type": "box", "pos": [6.15, 1.5, 3.5], "size": [0.3, 3, 5], "material": "concrete" },
+    { "type": "box", "pos": [6.15, 2.75, 0], "size": [0.3, 0.5, 2], "material": "concrete" },
+    { "type": "box", "pos": [-2.5, 1.5, -2.5], "size": [0.8, 3, 0.8], "material": "concrete" },
     {
       "type": "box",
       "pos": [3, 0.5, -4.5],
@@ -134,60 +54,15 @@
       "material": "metal",
       "walkable": true
     },
-    {
-      "type": "box",
-      "pos": [11.15, 1.5, -4.15],
-      "size": [9.7, 3, 0.3],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [8.85, 1.5, 4.15],
-      "size": [5.1, 3, 0.3],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [14.3, 1.5, 4.15],
-      "size": [3.4, 3, 0.3],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [12, 0.45, 4.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [12, 2.55, 4.15],
-      "size": [1.2, 0.9, 0.3],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [16.15, 1.5, -1.45],
-      "size": [0.3, 3, 5.7],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [16.15, 1.5, 3.45],
-      "size": [0.3, 3, 1.7],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [16.15, 0.45, 2],
-      "size": [0.3, 0.9, 1.2],
-      "material": "plaster"
-    },
-    {
-      "type": "box",
-      "pos": [16.15, 2.55, 2],
-      "size": [0.3, 0.9, 1.2],
-      "material": "plaster"
-    },
+    { "type": "box", "pos": [11.15, 1.5, -4.15], "size": [9.7, 3, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [8.85, 1.5, 4.15], "size": [5.1, 3, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [14.3, 1.5, 4.15], "size": [3.4, 3, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [12, 0.45, 4.15], "size": [1.2, 0.9, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [12, 2.55, 4.15], "size": [1.2, 0.9, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [16.15, 1.5, -1.45], "size": [0.3, 3, 5.7], "material": "plaster" },
+    { "type": "box", "pos": [16.15, 1.5, 3.45], "size": [0.3, 3, 1.7], "material": "plaster" },
+    { "type": "box", "pos": [16.15, 0.45, 2], "size": [0.3, 0.9, 1.2], "material": "plaster" },
+    { "type": "box", "pos": [16.15, 2.55, 2], "size": [0.3, 0.9, 1.2], "material": "plaster" },
     {
       "type": "box",
       "pos": [10.8, 0.125, -3],
@@ -248,11 +123,7 @@
   "playerSpawns": [{ "pos": [0, 0, 3], "yaw": 0 }],
   "zones": [
     { "id": "hall", "bounds": { "min": [6.3, 0, -4], "max": [16, 3, 4] } },
-    {
-      "id": "start",
-      "bounds": { "min": [-6, 0, -6], "max": [6, 3, 6] },
-      "activeAtStart": true
-    }
+    { "id": "start", "bounds": { "min": [-6, 0, -6], "max": [6, 3, 6] }, "activeAtStart": true }
   ],
   "doors": [
     {
@@ -319,19 +190,9 @@
     "preset": "night-dim",
     "fog": { "color": "#0b0d10", "near": 8, "far": 45 },
     "lamps": [
-      {
-        "pos": [1.5, 2.7, 1],
-        "color": "#ffc98a",
-        "intensity": 5,
-        "range": 9
-      },
+      { "pos": [1.5, 2.7, 1], "color": "#ffc98a", "intensity": 5, "range": 9 },
       { "pos": [9, 2.7, 0], "color": "#ffb070", "intensity": 4, "range": 8 },
-      {
-        "pos": [14, 2.9, 1.5],
-        "color": "#ffb070",
-        "intensity": 4,
-        "range": 8
-      }
+      { "pos": [14, 2.9, 1.5], "color": "#ffb070", "intensity": 4, "range": 8 }
     ]
   }
 }

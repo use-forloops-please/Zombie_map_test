@@ -16,3 +16,5 @@ See [CLAUDE.md](CLAUDE.md) for the design spec and milestones, and [ASSETS.md](A
 - `?map=<id>` — load `public/maps/<id>/map.json`
 - `?debug=nav` — draw the navmesh
 - `?lighting=<preset>` — preview a lighting preset (`night-dim`, `bunker-amber`, `overcast-dusk`, `blackout`) in place of the map's own
+- `?editor` / `?editor=<id>` — the in-browser map editor (see [docs/MAPPING.md](docs/MAPPING.md))
+- `?playtest` — play the map last sent from the editor with **Play test**

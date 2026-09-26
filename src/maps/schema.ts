@@ -217,6 +217,24 @@ export function doorAsBrush(d: DoorDef): BrushDef {
   return { type: 'box', pos: d.pos, size: d.size, material: 'wood', walkable: false }
 }
 
+/** One validation problem, with the path to the offending value (e.g. `windows[2].zone`). */
+export interface MapIssue {
+  path: readonly PropertyKey[]
+  message: string
+}
+
+/** Like `parseMap`, but keeps each problem's path so an editor can point at the culprit. */
+export function checkMap(
+  json: unknown,
+): { ok: true; map: MapDef } | { ok: false; issues: MapIssue[] } {
+  const result = mapSchema.safeParse(json)
+  if (result.success) return { ok: true, map: result.data }
+  return {
+    ok: false,
+    issues: result.error.issues.map((i) => ({ path: i.path, message: i.message })),
+  }
+}
+
 export type ParseMapResult = { ok: true; map: MapDef } | { ok: false; error: string }
 
 /** Validates raw JSON against the map schema. Never throws. */

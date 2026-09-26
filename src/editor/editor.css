@@ -1,0 +1,304 @@
+/* Map editor panels (?editor). The canvas behind them is the 3D view. */
+
+.editor {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  font-size: 12px;
+  color: #e6e8ec;
+}
+
+.editor-panel {
+  position: absolute;
+  pointer-events: auto;
+  background: rgb(22 25 31 / 92%);
+  border: 1px solid #343a46;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 35%);
+}
+
+.editor button,
+.editor select,
+.editor input {
+  font: inherit;
+  color: inherit;
+}
+
+.editor button {
+  background: #2b313c;
+  border: 1px solid #3d4452;
+  border-radius: 5px;
+  padding: 4px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.editor button:hover:not(:disabled) {
+  background: #363d4a;
+}
+
+.editor button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.editor h3 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9aa3b2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.editor-top {
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+}
+
+.editor-brand {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #e0463a;
+  margin-right: 4px;
+}
+
+.editor-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 10px;
+  border-left: 1px solid #343a46;
+}
+
+.editor-toggle.on {
+  background: #3b5b8c;
+  border-color: #5b86c7;
+}
+
+.editor-primary {
+  background: #2f6b3f !important;
+  border-color: #4c9a61 !important;
+  font-weight: 600;
+}
+
+.editor-danger {
+  background: #5a2626 !important;
+  border-color: #8a3a3a !important;
+}
+
+.editor-check,
+.editor-checkfield {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.editor-left,
+.editor-right {
+  top: 62px;
+  bottom: 120px;
+  width: 230px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.editor-left {
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.editor-outline {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-outline ul {
+  overflow-y: auto;
+}
+
+.editor-right {
+  right: 10px;
+  width: 260px;
+}
+
+.editor-add {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.editor-add button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: left;
+  padding: 5px 6px;
+  font-size: 11px;
+}
+
+.editor-swatch {
+  display: inline-block;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.editor-outline ul,
+.editor-problems ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-outline button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border-color: transparent;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.editor-outline button.selected {
+  background: #3b4a63;
+  border-color: #5b86c7;
+}
+
+.editor-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.editor-field > span {
+  color: #aab2c0;
+  flex: none;
+}
+
+.editor-field input:not([type='checkbox'], [type='color']),
+.editor-field select {
+  width: 130px;
+  background: #11141a;
+  border: 1px solid #3d4452;
+  border-radius: 4px;
+  padding: 3px 6px;
+}
+
+.editor-vec3 > div {
+  display: flex;
+  gap: 3px;
+}
+
+.editor-vec3 input {
+  width: 46px !important;
+  padding: 3px 4px !important;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.editor-link {
+  background: none !important;
+  border: none !important;
+  color: #7fb2ff;
+  padding: 0 0 8px !important;
+  text-decoration: underline;
+}
+
+.editor-note {
+  color: #8d95a3;
+  line-height: 1.45;
+  margin: 10px 0 0;
+}
+
+.editor-problems {
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  max-height: 96px;
+  overflow-y: auto;
+  padding: 8px 10px;
+}
+
+.editor-problems li button {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  color: #ff9d8f;
+  text-align: left;
+  white-space: normal;
+}
+
+.editor-path {
+  color: #ffd27f;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+.editor-ok {
+  color: #7ddc8f;
+}
+
+.editor-nav {
+  margin-top: 4px;
+  white-space: pre-wrap;
+}
+
+.editor-nav-ok {
+  color: #7ddc8f;
+}
+
+.editor-nav-failed {
+  color: #ff9d8f;
+}
+
+.editor-nav-running {
+  color: #aab2c0;
+}
+
+.editor-toast {
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+  background: #2b313c;
+  border: 1px solid #5b86c7;
+  border-radius: 6px;
+  padding: 7px 14px;
+  pointer-events: none;
+  animation: editor-toast 2.6s ease-in forwards;
+}
+
+@keyframes editor-toast {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -3,8 +3,5 @@
   "name": "Bunker 01 (Blender twin)",
   "version": 1,
   "art": "level.glb",
-  "lighting": {
-    "preset": "night-dim",
-    "fog": { "color": "#0b0d10", "near": 8, "far": 45 }
-  }
+  "lighting": { "preset": "night-dim", "fog": { "color": "#0b0d10", "near": 8, "far": 45 } }
 }
