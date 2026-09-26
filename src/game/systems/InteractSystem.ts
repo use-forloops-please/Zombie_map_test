@@ -4,7 +4,10 @@ import { viewDirection, type Player } from '../entities/Player'
 
 /** Something the player can use by holding the interact key near it. */
 export interface Interactable {
-  /** World position the player must be near (compared horizontally). */
+  /**
+   * World position the player must be near: within `range` horizontally, and at a height
+   * the player can reach from their floor (see REACH_BELOW / REACH_ABOVE).
+   */
   readonly position: THREE.Vector3
   readonly range: number
   /** Prompt text when usable right now, or null to hide it (e.g. a fully boarded window). */
@@ -35,6 +38,13 @@ export function oncePerPress(action: () => void): Pick<Interactable, 'hold' | 'r
 
 /** Only interactables roughly in front of the player can be focused (cosine of the half-angle). */
 const MIN_FACING = 0.2
+
+/**
+ * How far below and above the player's feet an interactable can be, in metres, so things
+ * stacked on different floors (a door over a door, a window over a window) don't compete.
+ */
+const REACH_BELOW = 0.5
+const REACH_ABOVE = 2.5
 
 /**
  * "Hold F to …" prompts: each step, focuses the nearest usable interactable the player is
@@ -84,6 +94,8 @@ export class InteractSystem {
     let best: Interactable | null = null
     let bestDist = Infinity
     for (const item of this.items) {
+      const dy = item.position.y - p.y
+      if (dy < -REACH_BELOW || dy > REACH_ABOVE) continue
       const dx = item.position.x - p.x
       const dz = item.position.z - p.z
       const d = Math.hypot(dx, dz)

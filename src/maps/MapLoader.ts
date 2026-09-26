@@ -10,7 +10,7 @@ import { createWallBuy, type WallBuy } from '../game/entities/WallBuy'
 import { TargetDummy } from '../game/entities/TargetDummy'
 import { extractArt, mergeArt, type ArtScene } from './art'
 import {
-  buildBrushMesh,
+  buildBrushBatches,
   createBrushMaterials,
   loadBrushTextures,
   noBrushTextures,
@@ -235,12 +235,11 @@ export function buildMap(
   root.name = `map:${def.id}`
   const materials = createBrushMaterials(textures)
   const bounds = new THREE.Box3()
-  for (const brush of def.brushes) {
-    const mesh = buildBrushMesh(brush, materials)
+  for (const mesh of buildBrushBatches(def.brushes, materials)) {
     root.add(mesh)
     mesh.geometry.computeBoundingBox()
     const box = mesh.geometry.boundingBox
-    if (box) bounds.union(box.clone().translate(mesh.position))
+    if (box) bounds.union(box)
   }
   if (art) {
     art.root.traverse((obj) => {

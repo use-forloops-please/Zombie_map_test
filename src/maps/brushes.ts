@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { BrushDef, BrushMaterial } from './schema'
 import { brushTexture, textureCatalog, textureFiles, type TextureId } from './textures'
 
@@ -164,14 +165,45 @@ function scaleBoxUVs(geo: THREE.BoxGeometry, sx: number, sy: number, sz: number)
   uv.needsUpdate = true
 }
 
-export function buildBrushMesh(brush: BrushDef, materials: BrushMaterials): THREE.Mesh {
+function brushGeometry(brush: BrushDef): THREE.BoxGeometry {
   const [sx, sy, sz] = brush.size
   const geo = new THREE.BoxGeometry(sx, sy, sz)
   scaleBoxUVs(geo, sx, sy, sz)
-  const mesh = new THREE.Mesh(geo, materials.get(brush))
+  return geo
+}
+
+/** One mesh per brush, for the editor (which selects and moves brushes individually). */
+export function buildBrushMesh(brush: BrushDef, materials: BrushMaterials): THREE.Mesh {
+  const mesh = new THREE.Mesh(brushGeometry(brush), materials.get(brush))
   mesh.position.set(...brush.pos)
   mesh.castShadow = true
   mesh.receiveShadow = true
   mesh.userData.walkable = brush.walkable
   return mesh
+}
+
+/**
+ * The game's brush meshes: every brush sharing a material merged into one mesh, so a map
+ * costs one draw call (plus one shadow draw) per material rather than per brush.
+ */
+export function buildBrushBatches(
+  brushes: readonly BrushDef[],
+  materials: BrushMaterials,
+): THREE.Mesh[] {
+  const groups = new Map<THREE.MeshStandardMaterial, THREE.BufferGeometry[]>()
+  for (const brush of brushes) {
+    const geo = brushGeometry(brush).translate(...brush.pos)
+    const material = materials.get(brush)
+    const group = groups.get(material)
+    if (group) group.push(geo)
+    else groups.set(material, [geo])
+  }
+  return [...groups].map(([material, geos]) => {
+    const merged = mergeGeometries(geos)
+    for (const g of geos) g.dispose()
+    const mesh = new THREE.Mesh(merged, material)
+    mesh.castShadow = true
+    mesh.receiveShadow = true
+    return mesh
+  })
 }

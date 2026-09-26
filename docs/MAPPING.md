@@ -102,6 +102,22 @@ step over it. The loader checks that the only way in is climbing through, and sa
 window is wrong if not. [`public/maps/bunker-01/map.json`](../public/maps/bunker-01/map.json)
 is a complete example.
 
+### Upper floors
+
+[`public/maps/test-1/map.json`](../public/maps/test-1/map.json) adds a second storey to
+bunker-01. The rules that matter:
+
+- **Floors and stairs are `walkable` brushes.** Keep each step's rise at 0.35 m or less,
+  the most the player climbs without jumping.
+- **Put a buyable door at the top of the stairs**, and give each upper room its own zone, so
+  zombies and players can't go upstairs until it's opened. Wall off the sides of the stairs
+  so a player can't step off them around the door.
+- **An upper window needs a ledge outside it:** a `walkable` brush at floor height, with
+  `outsideSpawn` on it. Zombies appear on the ledge, so it doesn't have to connect to the
+  ground.
+- **Doors, windows and wall-buys can be stacked on different floors.** The player can only use
+  things from 0.5 m below their feet to 2.5 m above them.
+
 ## The Blender route (`level.glb`)
 
 Everything in the greybox route can come from Blender instead: meshes for the geometry,
