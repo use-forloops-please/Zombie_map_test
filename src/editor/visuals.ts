@@ -1,5 +1,10 @@
 import * as THREE from 'three'
-import { buildBrushMesh, createBrushMaterials, type BrushMaterials } from '../maps/brushes'
+import {
+  buildBrushMesh,
+  createBrushMaterials,
+  type BrushMaterials,
+  type BrushTextures,
+} from '../maps/brushes'
 import { CRATE_SIZE, type BrushDef } from '../maps/schema'
 import type { EditorDocument, ItemKind, ItemRef } from './document'
 
@@ -22,13 +27,17 @@ export const kindColors: Record<ItemKind, string> = {
  * and materials are shared; each object carries `userData.ref` for picking.
  */
 export class Visuals {
-  private readonly brushMaterials: BrushMaterials = createBrushMaterials()
+  private readonly brushMaterials: BrushMaterials
   private readonly materials = new Map<string, THREE.Material>()
   private readonly box = new THREE.BoxGeometry(1, 1, 1)
   private readonly edges = new THREE.EdgesGeometry(this.box)
   private readonly capsule = new THREE.CapsuleGeometry(0.3, 1.1, 4, 10)
   private readonly sphere = new THREE.SphereGeometry(0.18, 12, 8)
   private readonly arrow = new THREE.ConeGeometry(0.16, 0.45, 10).rotateX(-Math.PI / 2)
+
+  constructor(textures: BrushTextures) {
+    this.brushMaterials = createBrushMaterials(textures)
+  }
 
   build(doc: EditorDocument, ref: ItemRef): THREE.Object3D {
     const item = doc.get(ref) ?? {}

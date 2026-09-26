@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { TransformControls } from 'three/addons/controls/TransformControls.js'
 import { Physics } from '../engine/Physics'
+import type { BrushTextures } from '../maps/brushes'
 import { buildMapWorld, MapLoadError, type MapWorld } from '../maps/MapLoader'
 import { initNavigation } from '../maps/navmesh'
 import {
@@ -43,7 +44,7 @@ export class Editor {
   private readonly gizmo: TransformControls
   /** Invisible object the gizmo moves; its transform is copied into the document. */
   private readonly handle = new THREE.Object3D()
-  private readonly visuals = new Visuals()
+  private readonly visuals: Visuals
   private readonly items = new THREE.Group()
   private readonly objects = new Map<string, THREE.Object3D>()
   private readonly highlight = new THREE.Box3Helper(new THREE.Box3(), '#ffe14d')
@@ -57,9 +58,10 @@ export class Editor {
   private dragging = false
   private rafId = 0
 
-  constructor(canvas: HTMLCanvasElement, doc: EditorDocument) {
+  constructor(canvas: HTMLCanvasElement, doc: EditorDocument, textures: BrushTextures) {
     this.canvas = canvas
     this.doc = doc
+    this.visuals = new Visuals(textures)
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     this.scene.background = new THREE.Color('#1c2027')

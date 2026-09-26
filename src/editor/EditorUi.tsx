@@ -1,7 +1,8 @@
 import { useRef, useState, type ReactNode } from 'react'
 import { weaponDefs, weaponIds } from '../game/weapons/definitions'
 import { lightingPresetIds, type LightingPresetId } from '../maps/lighting'
-import { brushMaterials } from '../maps/schema'
+import { brushMaterials, type BrushMaterial } from '../maps/schema'
+import { materialTextures, textureCatalog, textureIds } from '../maps/textures'
 import {
   boxKinds,
   facingKinds,
@@ -266,6 +267,16 @@ function Properties({ editor }: { editor: Editor }) {
             value={str('material') || 'concrete'}
             options={brushMaterials}
             onCommit={(material) => set({ material })}
+          />
+          <SelectField
+            label="Texture"
+            value={str('texture')}
+            options={['', ...textureIds]}
+            labels={[
+              `Default: ${textureCatalog[materialTextures[(str('material') || 'concrete') as BrushMaterial]].name}`,
+              ...textureIds.map((id) => textureCatalog[id].name),
+            ]}
+            onCommit={(texture) => set({ texture: texture || undefined })}
           />
           <CheckField
             label="Walkable top"

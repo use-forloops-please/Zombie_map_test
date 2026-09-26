@@ -1,5 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { loadBrushTextures, noBrushTextures } from '../maps/brushes'
+import { textureIds } from '../maps/textures'
 import { EditorDocument, newMapDraft, type MapDraft } from './document'
 import { Editor } from './Editor'
 import { EditorUi } from './EditorUi'
@@ -30,7 +32,12 @@ export async function bootEditor(
     }
   }
 
-  const editor = new Editor(canvas, new EditorDocument(draft))
+  // Every texture, so any can be picked. Without them brushes show the greybox grid.
+  const textures = await loadBrushTextures(textureIds).catch((err: unknown) => {
+    problem = `Textures didn't load (${String(err)}); showing greybox materials.`
+    return noBrushTextures
+  })
+  const editor = new Editor(canvas, new EditorDocument(draft), textures)
   editor.start()
   createRoot(uiRoot).render(
     <StrictMode>

@@ -40,11 +40,13 @@ import type { LightingPresetId } from '../maps/lighting'
 import {
   buildMap,
   fetchMap,
+  loadMapTextures,
   mapSourceFromJson,
   type LoadedMap,
   type MapSource,
 } from '../maps/MapLoader'
 import { initNavigation } from '../maps/navmesh'
+import type { BrushTextures } from '../maps/brushes'
 import { uiStore } from '../ui/store'
 import { AudioEngine } from './Audio'
 import { Input } from './Input'
@@ -82,6 +84,7 @@ export class Game {
   private readonly events = new EventBus<GameEvents>()
   private readonly hitboxes = new HitboxRegistry()
   private readonly map: LoadedMap
+  private readonly textures: BrushTextures
   private readonly player: Player
   private readonly zombies: Zombie[] = []
   private readonly playerController: PlayerControllerSystem
@@ -137,9 +140,11 @@ export class Game {
     canvas: HTMLCanvasElement,
     physics: Physics,
     source: MapSource,
+    textures: BrushTextures,
     options: GameOptions,
   ) {
     const mapDef = source.def
+    this.textures = textures
     this.physics = physics
 
     this.renderer = new THREE.WebGLRenderer({
@@ -160,7 +165,7 @@ export class Game {
     const def = options.lighting
       ? { ...mapDef, lighting: { ...mapDef.lighting, preset: options.lighting, fog: undefined } }
       : mapDef
-    this.map = buildMap({ ...source, def }, this.scene, physics, this.hitboxes)
+    this.map = buildMap({ ...source, def }, this.scene, physics, this.hitboxes, textures)
     this.scene.add(
       this.impacts.mesh,
       this.bloodDecals.mesh,
@@ -403,7 +408,8 @@ export class Game {
         options.mapJson === undefined
           ? await fetchMap(mapId)
           : await mapSourceFromJson(options.mapJson, mapId)
-      return new Game(canvas, physics, source, options)
+      const textures = await loadMapTextures(source.def)
+      return new Game(canvas, physics, source, textures, options)
     } catch (err) {
       physics.dispose()
       throw err
@@ -460,6 +466,7 @@ export class Game {
       this.navmeshHelper.navMeshMaterial.dispose()
     }
     this.map.dispose()
+    this.textures.dispose()
     this.impacts.dispose()
     this.viewmodel.dispose()
     this.renderer.dispose()

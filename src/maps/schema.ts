@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { weaponIds } from '../game/weapons/definitions'
 import { lightingPresetIds } from './lighting'
+import { textureIds } from './textures'
 
 /*
  * Coordinate conventions for map.json:
@@ -19,6 +20,8 @@ const boxBrushSchema = z.object({
   pos: vec3,
   size: vec3.refine((s) => s.every((n) => n > 0), 'every size component must be > 0'),
   material: z.enum(brushMaterials).default('concrete'),
+  /** Surface texture; defaults to the material's (see maps/textures.ts). */
+  texture: z.enum(textureIds).optional(),
   walkable: z.boolean().default(false),
 })
 

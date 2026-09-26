@@ -9,8 +9,15 @@ import { SpawnWindow, type WindowAnchors } from '../game/entities/SpawnWindow'
 import { createWallBuy, type WallBuy } from '../game/entities/WallBuy'
 import { TargetDummy } from '../game/entities/TargetDummy'
 import { extractArt, mergeArt, type ArtScene } from './art'
-import { buildBrushMesh, createBrushMaterials } from './brushes'
+import {
+  buildBrushMesh,
+  createBrushMaterials,
+  loadBrushTextures,
+  noBrushTextures,
+  type BrushTextures,
+} from './brushes'
 import { lightingPresets } from './lighting'
+import { texturesUsed } from './textures'
 import { buildNavigation, type Navigation } from './navmesh'
 import {
   crateSpotAsBrush,
@@ -219,13 +226,14 @@ export function buildMap(
   scene: THREE.Scene,
   physics: Physics,
   hitboxes: HitboxRegistry,
+  textures: BrushTextures = noBrushTextures,
 ): LoadedMap {
   const { def, art } = source
   const world = buildMapWorld(source, physics)
 
   const root = new THREE.Group()
   root.name = `map:${def.id}`
-  const materials = createBrushMaterials()
+  const materials = createBrushMaterials(textures)
   const bounds = new THREE.Box3()
   for (const brush of def.brushes) {
     const mesh = buildBrushMesh(brush, materials)
@@ -277,6 +285,20 @@ export function buildMap(
         }
       }
     },
+  }
+}
+
+/**
+ * Downloads the textures a map's brushes use. The caller owns (and disposes) the result.
+ * Throws MapLoadError naming the file if one is missing.
+ */
+export async function loadMapTextures(def: MapDef): Promise<BrushTextures> {
+  try {
+    return await loadBrushTextures(texturesUsed(def))
+  } catch (err) {
+    throw new MapLoadError(`Map "${def.id}": ${err instanceof Error ? err.message : String(err)}`, {
+      cause: err,
+    })
   }
 }
 

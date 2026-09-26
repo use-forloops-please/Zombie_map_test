@@ -61,19 +61,41 @@ without changes gives back the same file byte for byte.
 `map.json` is checked against [`src/maps/schema.ts`](../src/maps/schema.ts), which documents
 every field. The top-level keys:
 
-| Key                     | What it holds                                                                                                                                                                                      |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`, `name`, `version` | `id` must match the folder name. `version` is `1`.                                                                                                                                                 |
-| `art`                   | Optional: the Blender export's file name in this folder, like `"level.glb"`.                                                                                                                       |
-| `brushes`               | Boxes: `pos` (centre), `size`, `material` (`concrete`, `plaster`, `wood`, `metal`, `dirt`) and `walkable`. Every brush is solid. Only `walkable` brushes can be stood on (floors, crates, stairs). |
-| `playerSpawns`          | Where the player starts: `pos` (feet) and `yaw`.                                                                                                                                                   |
-| `zones`                 | Axis-aligned areas (`bounds.min`/`max`). At least one needs `activeAtStart: true`.                                                                                                                 |
-| `windows`               | Boarded windows zombies enter through: `id`, `zone`, `pos` (centre of the opening), `yaw` (facing outside), `outsideSpawn`, and optionally `boards`, `width`, `height`.                            |
-| `doors`                 | Buyable blockers: `id`, `cost`, `pos`, `size`, and `connects` (two zone ids).                                                                                                                      |
-| `wallBuys`              | `weapon`, `pos`, `yaw` (the way the sign faces), and optionally `cost` and `ammoCost`.                                                                                                             |
-| `crateSpots`            | Where the supply crate can sit: `id`, `pos` (floor under its centre), `yaw` (its front), and optionally `zone` and `startsHere`.                                                                   |
-| `targetDummies`         | Practice targets: `pos` and `yaw`.                                                                                                                                                                 |
-| `lighting`              | `preset` (`night-dim`, `bunker-amber`, `overcast-dusk`, `blackout`), optional `fog` (`color`, `near`, `far`), and up to 6 `lamps` (`pos`, `color`, `intensity`, `range`).                          |
+| Key                     | What it holds                                                                                                                                                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`, `name`, `version` | `id` must match the folder name. `version` is `1`.                                                                                                                                                                                 |
+| `art`                   | Optional: the Blender export's file name in this folder, like `"level.glb"`.                                                                                                                                                       |
+| `brushes`               | Boxes: `pos` (centre), `size`, `material` (`concrete`, `plaster`, `wood`, `metal`, `dirt`), optional `texture` (see below) and `walkable`. Every brush is solid. Only `walkable` brushes can be stood on (floors, crates, stairs). |
+| `playerSpawns`          | Where the player starts: `pos` (feet) and `yaw`.                                                                                                                                                                                   |
+| `zones`                 | Axis-aligned areas (`bounds.min`/`max`). At least one needs `activeAtStart: true`.                                                                                                                                                 |
+| `windows`               | Boarded windows zombies enter through: `id`, `zone`, `pos` (centre of the opening), `yaw` (facing outside), `outsideSpawn`, and optionally `boards`, `width`, `height`.                                                            |
+| `doors`                 | Buyable blockers: `id`, `cost`, `pos`, `size`, and `connects` (two zone ids).                                                                                                                                                      |
+| `wallBuys`              | `weapon`, `pos`, `yaw` (the way the sign faces), and optionally `cost` and `ammoCost`.                                                                                                                                             |
+| `crateSpots`            | Where the supply crate can sit: `id`, `pos` (floor under its centre), `yaw` (its front), and optionally `zone` and `startsHere`.                                                                                                   |
+| `targetDummies`         | Practice targets: `pos` and `yaw`.                                                                                                                                                                                                 |
+| `lighting`              | `preset` (`night-dim`, `bunker-amber`, `overcast-dusk`, `blackout`), optional `fog` (`color`, `near`, `far`), and up to 6 `lamps` (`pos`, `color`, `intensity`, `range`).                                                          |
+
+### Brush textures
+
+Each material has a default texture, and a brush can name a different one with `texture`
+(the editor's **Texture** picker). Textures tile at their real-world size, however big the
+brush is:
+
+| `texture`        | Looks like          | Tile size | Default for |
+| ---------------- | ------------------- | --------- | ----------- |
+| `concrete-wall`  | Stained concrete    | 3 m       | `concrete`  |
+| `concrete-floor` | Worn concrete floor | 3 m       |             |
+| `dirty-concrete` | Dirty concrete      | 3 m       |             |
+| `plaster`        | Beige plaster       | 3 m       | `plaster`   |
+| `wood-planks`    | Weathered planks    | 1.8 m     | `wood`      |
+| `rusty-metal`    | Rusty metal         | 1 m       | `metal`     |
+| `dirt`           | Dirt ground         | 2 m       | `dirt`      |
+| `red-brick`      | Red brick           | 1 m       |             |
+
+A map downloads only the textures it uses. To add a texture, put `color.jpg`, `normal.jpg`
+(OpenGL style) and `rough.jpg` in `public/assets/textures/<id>/`, add it to
+[`src/maps/textures.ts`](../src/maps/textures.ts) with its real-world size, and log it in
+[`ASSETS.md`](../ASSETS.md).
 
 A window needs a real gap in the wall brushes, with a sill high enough that zombies can't
 step over it. The loader checks that the only way in is climbing through, and says which
