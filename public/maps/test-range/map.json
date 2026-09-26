@@ -1,0 +1,27 @@
+{
+  "id": "test-range",
+  "name": "Test Range",
+  "version": 1,
+  "brushes": [
+    {
+      "type": "box",
+      "pos": [0, -0.25, -8],
+      "size": [16, 0.5, 30],
+      "material": "concrete",
+      "walkable": true
+    },
+    { "type": "box", "pos": [0, 2, -23.15], "size": [16, 4, 0.3], "material": "plaster" },
+    { "type": "box", "pos": [-8.15, 1, -8], "size": [0.3, 2, 30], "material": "plaster" },
+    { "type": "box", "pos": [8.15, 1, -8], "size": [0.3, 2, 30], "material": "plaster" },
+    { "type": "box", "pos": [3, 1.5, -10], "size": [0.8, 3, 0.8], "material": "concrete" },
+    { "type": "box", "pos": [-4, 0.5, -6], "size": [1, 1, 1], "material": "wood", "walkable": true }
+  ],
+  "playerSpawns": [{ "pos": [0, 0, 4], "yaw": 0 }],
+  "targetDummies": [
+    { "pos": [0, 0, -1], "yaw": 180 },
+    { "pos": [-3, 0, -6], "yaw": 180 },
+    { "pos": [3.5, 0, -12], "yaw": 180 },
+    { "pos": [0, 0, -16], "yaw": 180 }
+  ],
+  "lighting": { "preset": "night-dim", "fog": { "color": "#0b0d10", "near": 15, "far": 60 } }
+}
